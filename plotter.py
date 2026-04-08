@@ -200,13 +200,16 @@ class Plotter:
                 self.df_data = None
             
             if sig:
-                expanded_sig = self._expand_regex_patterns(sig)
                 if isinstance(sig, str):
+                    expanded_sig = self._expand_regex_patterns(sig)
                     logger.info(f"Loading signal from: {expanded_sig}")
                     self.df_sig = self._create_dataframe(expanded_sig, cut)
                 else:
-                    logger.info(f"Loading {len(expanded_sig)} signal samples")
-                    self.df_sig = [self._create_dataframe(s, cut) for s in expanded_sig]
+                    logger.info(f"Loading {len(sig)} configured signal sample(s)")
+                    self.df_sig = []
+                    for sig_source in sig:
+                        expanded_sig_source = self._expand_regex_patterns(sig_source)
+                        self.df_sig.append(self._create_dataframe(expanded_sig_source, cut))
             else:
                 self.df_sig = None
             

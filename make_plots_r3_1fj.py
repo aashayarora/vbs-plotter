@@ -13,7 +13,7 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-NUM_BINS = 25
+NUM_BINS = 50
 BASE_PATH = "/ceph/cms/store/user/aaarora/vbsvvh/preselection/"
 
 SIGNAL_SCALE = 1000.0
@@ -33,16 +33,16 @@ hists = [
     Hist1D("vbs_jet2_pt", r"VBS Jet 2 $p_{T}$ [GeV]", (NUM_BINS, 0, 500)),
     Hist1D("vbs_jet2_eta", r"VBS Jet 2 $\eta$", (NUM_BINS, -5.0, 5.0)),
     Hist1D("vbs_jet2_phi", r"VBS Jet 2 $\phi$", (NUM_BINS, -3.5, 3.5)),
-    Hist1D("vbs_mjj", r"VBS $m_{jj}$ [GeV]", (NUM_BINS, 0, 5000)),
+    Hist1D("vbs_mjj", r"VBS $m_{jj}$ [GeV]", (NUM_BINS, 0, 3000)),
     Hist1D("vbs_detajj", r"VBS $\Delta\eta_{jj}$", (NUM_BINS, 0, 10)),
 
     Hist1D("boosted_h_candidate_score", r"Boosted Higgs Candidate Score", (NUM_BINS, 0, 1)),
-    Hist1D("boosted_h_candidate_pt", r"Boosted Higgs Candidate $p_{T}$ [GeV]", (NUM_BINS, 0, 500)),
+    Hist1D("boosted_h_candidate_pt", r"Boosted Higgs Candidate $p_{T}$ [GeV]", (NUM_BINS, 250, 750)),
     Hist1D("boosted_h_candidate_eta", r"Boosted Higgs Candidate $\eta$", (NUM_BINS, -2.5, 2.5)),
     Hist1D("boosted_h_candidate_phi", r"Boosted Higgs Candidate $\phi$", (NUM_BINS, -3.5, 3.5)),
 
     Hist1D("boosted_v_candidate_score", r"Boosted V Candidate Score", (NUM_BINS, 0, 1)),
-    Hist1D("boosted_v_candidate_pt", r"Boosted V Candidate $p_{T}$ [GeV]", (NUM_BINS, 0, 500)),
+    Hist1D("boosted_v_candidate_pt", r"Boosted V Candidate $p_{T}$ [GeV]", (NUM_BINS, 250, 750)),
     Hist1D("boosted_v_candidate_eta", r"Boosted V Candidate $\eta$", (NUM_BINS, -2.5, 2.5)),
     Hist1D("boosted_v_candidate_phi", r"Boosted V Candidate $\phi$", (NUM_BINS, -3.5, 3.5)),
 
@@ -54,8 +54,8 @@ hists = [
 ]
 
 bkg_samples_labels = {
-    "TT": r"$t\bar{t}$",
-    "WJets": "W + Jets",
+    "TTto": r"$t\bar{t}$",
+    "Wto": "W + Jets",
     "QCD": "QCD",
     "ST": "Single Top",
     "DY": "Drell-Yan"
@@ -65,17 +65,17 @@ sig_samples_labels = [
     r"VBS VVH ($\kappa_V$ = 1.5)",
 ]
 
-SELECTION_CUT = "resolved_mjj_1 > 0"
+SELECTION_CUT = None
 
 def main():
     sig_files = [
-        BASE_PATH + "run2-sig-1lep1fj.root"
+        BASE_PATH + "1Lep1FJ_run3-sig_1lep_1FJ_r3_1fj_sig/*/*.root"
     ]
     bkg_files = [
-         BASE_PATH + "1Lep1FJ_run2-bkg_1lep_1FJ_r2_1fj_bkg2/*/*.root"
+         BASE_PATH + "1Lep1FJ_run3-bkg_1lep_1FJ_r3_1fj_bkg/*/*.root"
     ]
     data_files = [
-        BASE_PATH + "1Lep1FJ_run2-data_1lep_1FJ_r2_1fj_data2/*/*.root",
+        BASE_PATH + "1Lep1FJ_run3-data_1lep_1FJ_r3_1fj_data/*/*.root",
     ]
     
     try:
@@ -87,7 +87,8 @@ def main():
             bkg_samples_labels=bkg_samples_labels,
             sig_samples_labels=sig_samples_labels,
             cut=SELECTION_CUT,
-            year="Run2",
+            year="Run3",
+            lumi=171
         )
         logger.info("Plotter initialized successfully")
     except Exception as e:

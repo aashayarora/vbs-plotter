@@ -37,12 +37,12 @@ hists = [
     Hist1D("vbs_detajj", r"VBS $\Delta\eta_{jj}$", (NUM_BINS, 0, 10), scale=SIGNAL_SCALE),
 
     Hist1D("boosted_h_candidate_score", r"Boosted Higgs Candidate Score", (NUM_BINS, 0, 1), scale=SIGNAL_SCALE),
-    Hist1D("boosted_h_candidate_pt", r"Boosted Higgs Candidate $p_{T}$ [GeV]", (NUM_BINS, 0, 500), scale=SIGNAL_SCALE),
+    Hist1D("boosted_h_candidate_pt", r"Boosted Higgs Candidate $p_{T}$ [GeV]", (NUM_BINS, 250, 750), scale=SIGNAL_SCALE),
     Hist1D("boosted_h_candidate_eta", r"Boosted Higgs Candidate $\eta$", (NUM_BINS, -2.5, 2.5), scale=SIGNAL_SCALE),
     Hist1D("boosted_h_candidate_phi", r"Boosted Higgs Candidate $\phi$", (NUM_BINS, -3.5, 3.5), scale=SIGNAL_SCALE),
 
     Hist1D("boosted_v_candidate_score", r"Boosted V Candidate Score", (NUM_BINS, 0, 1), scale=SIGNAL_SCALE),
-    Hist1D("boosted_v_candidate_pt", r"Boosted V Candidate $p_{T}$ [GeV]", (NUM_BINS, 0, 500), scale=SIGNAL_SCALE),
+    Hist1D("boosted_v_candidate_pt", r"Boosted V Candidate $p_{T}$ [GeV]", (NUM_BINS, 250, 750), scale=SIGNAL_SCALE),
     Hist1D("boosted_v_candidate_eta", r"Boosted V Candidate $\eta$", (NUM_BINS, -2.5, 2.5), scale=SIGNAL_SCALE),
     Hist1D("boosted_v_candidate_phi", r"Boosted V Candidate $\phi$", (NUM_BINS, -3.5, 3.5), scale=SIGNAL_SCALE),
 ]
@@ -53,7 +53,6 @@ bkg_samples_labels = {
     "QCD": "QCD",
     "ST": "Single Top",
     "DY": "Drell-Yan",
-    "Other": "Other",
 }
 
 sig_samples_labels = [
@@ -64,13 +63,13 @@ SELECTION_CUT = None
 
 def main():
     sig_files = [
-        BASE_PATH + "run2-sig-1lep2fj.root"
+        BASE_PATH + "1Lep2FJ_run2-sig_1lep_2FJ_r2_2fj_sig/*/*.root"
     ]
     bkg_files = [
-         BASE_PATH + "1Lep2FJ_run2-bkg_1lep_2FJ_r2_2fj_bkg4/*/*.root"
+        BASE_PATH + "1Lep2FJ_run2-bkg_1lep_2FJ_r2_2fj_bkg/*/*.root"
     ]
     data_files = [
-        BASE_PATH + "1Lep2FJ_run2-data_1lep_2FJ_r2_2fj_data5/*/*.root",
+        BASE_PATH + "1Lep2FJ_run2-data_1lep_2FJ_r2_2fj_data/*/*.root",
     ]
     
     try:
